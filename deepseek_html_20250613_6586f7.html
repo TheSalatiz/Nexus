@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus AI Agents | Scale Without Burnout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        :root {
+            --midnight-blue: #0a0f2b;
+            --neon-cyan: #00f3ff;
+            --soft-purple: #8a2be2;
+            --chrome-white: #f0f8ff;
+            --deep-space: #05081f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--deep-space);
+            color: var(--chrome-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, .cta-btn {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background: rgba(10, 15, 43, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--soft-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--chrome-white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            padding-top: 100px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--chrome-white), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+            color: rgba(240, 248, 255, 0.85);
+            animation: fadeIn 1.2s ease;
+        }
+        
+        .cta-container {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .cta-btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+        }
+        
+        .primary-cta {
+            background: linear-gradient(90deg, var(--soft-purple), var(--neon-cyan));
+            color: var(--deep-space);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+        
+        .secondary-cta {
+            background: transparent;
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 243, 255, 0.4);
+        }
+        
+        /* Sections */
+        section {
+            padding: 7rem 5%;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--soft-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+        
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: rgba(240, 248, 255, 0.8);
+        }
+        
+        /* Problem Section */
+        .problem-section {
+            background: rgba(5, 8, 31, 0.7);
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+        }
+        
+        .problem-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: center;
+        }
+        
+        .problem-card {
+            background: rgba(10, 15, 43, 0.5);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 350px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+        }
+        
+        .problem-card h3 {
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .problem-card h3::before {
+            content: "⚠️";
+        }
+        
+        .problem-card p {
+            color: rgba(240, 248, 255, 0.8);
+        }
+        
+        /* Solution Section */
+        .solution-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+        }
+        
+        .solution-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .solution-steps {
+            margin-top: 2rem;
+        }
+        
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            font-family: 'Orbitron', sans-serif;
+            background: var(--midnight-blue);
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            color: var(--neon-cyan);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .solution-visual {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ai-agent {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--soft-purple), transparent 70%);
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 4s infinite;
+        }
+        
+        .ai-core {
+            width: 100px;
+            height: 100px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
+            position: relative;
+        }
+        
+        .ai-core::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            box-shadow: 0 0 50px var(--neon-cyan);
+            animation: pulseCore 2s infinite;
+        }
+        
+        .data-point {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+        
+        /* Use Cases */
+        .use-cases {
+            background: rgba(5, 8, 31, 0.7);
+        }
+        
+        .cases-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        
+        .case-card {
+            background: rgba(10, 15, 43, 0.6);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 15px;
+            padding: 2.5rem;
+            width: 300px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .case-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--soft-purple), var(--neon-cyan));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .case-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3);
+        }
+        
+        .case-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon-cyan);
+        }
+        
+        .case-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--chrome-white);
+        }
+        
+        .case-card p {
+            color: rgba(240, 248, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+        
+        .metrics {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        
+        .metric {
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-cyan);
+            line-height: 1;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: rgba(240, 248, 255, 0.7);
+        }
+        
+        /* Social Proof */
+        .social-proof {
+            text-align: center;
+            padding: 4rem 5%;
+        }
+        
+        .proof-quote {
+            font-size: 1.8rem;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            font-style: italic;
+            color: var(--chrome-white);
+            position: relative;
+        }
+        
+        .proof-quote::before, .proof-quote::after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--neon-cyan);
+            position: absolute;
+            opacity: 0.3;
+        }
+        
+        .proof-quote::before {
+            top: -30px;
+            left: -40px;
+        }
+        
+        .proof-quote::after {
+            bottom: -60px;
+            right: -40px;
+        }
+        
+        .quote-author {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        
+        .logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-top: 4rem;
+            opacity: 0.8;
+        }
+        
+        .logo-item {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--chrome-white);
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+        
+        .logo-item::after {
+            content: '•';
+            position: absolute;
+            right: -1.8rem;
+            color: var(--soft-purple);
+        }
+        
+        .logo-item:last-child::after {
+            display: none;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            text-align: center;
+            padding: 8rem 5%;
+            position: relative;
+        }
+        
+        .final-cta h2 {
+            font-size: 3.5rem;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            line-height: 1.3;
+            background: linear-gradient(90deg, var(--chrome-white), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .closing-statement {
+            font-size: 1.8rem;
+            max-width: 800px;
+            margin: 5rem auto 0;
+            color: var(--chrome-white);
+            font-style: italic;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .closing-statement::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--neon-cyan);
+        }
+        
+        .scarcity-badge {
+            display: inline-block;
+            background: rgba(255, 50, 50, 0.2);
+            color: #ff7d7d;
+            border: 1px solid #ff7d7d;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            animation: pulseScarcity 2s infinite;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(240, 248, 255, 0.6);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 50px rgba(138, 43, 226, 0.5); }
+            50% { box-shadow: 0 0 70px rgba(138, 43, 226, 0.8); }
+            100% { box-shadow: 0 0 50px rgba(138, 43, 226, 0.5); }
+        }
+        
+        @keyframes pulseCore {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+        
+        @keyframes pulseScarcity {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.8; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3rem; }
+            .section-header h2 { font-size: 2.3rem; }
+            .final-cta h2 { font-size: 2.8rem; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .cta-container { flex-direction: column; gap: 1rem; }
+            .cta-btn { width: 100%; text-align: center; }
+            .section-header h2 { font-size: 2rem; }
+            .final-cta h2 { font-size: 2.2rem; }
+            .closing-statement { font-size: 1.5rem; }
+            .proof-quote { font-size: 1.4rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero { padding-top: 80px; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .section-header h2 { font-size: 1.8rem; }
+            .final-cta h2 { font-size: 1.8rem; }
+            .closing-statement { font-size: 1.2rem; }
+            .problem-card, .case-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">NEXUS AGENTS</div>
+        <div class="nav-links">
+            <a href="#solution">The Solution</a>
+            <a href="#cases">Use Cases</a>
+            <a href="#testimonials">Proof</a>
+            <a href="#pricing">Pricing</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Every hour you wait, your competition grows faster.<br>Scale with AI agents today.</h1>
+            <p>We build custom AI agents that save you time, cut costs, and help you grow without burnout. Whether it's lead gen, research, or customer support—your new teammate doesn't sleep.</p>
+            <div class="cta-container">
+                <button class="cta-btn primary-cta">Book Your Call</button>
+                <button class="cta-btn secondary-cta">Watch Demo</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- The Problem -->
+    <section class="problem-section">
+        <div class="section-header">
+            <h2>You're bleeding time. Your competition isn't.</h2>
+            <p>While you're stuck in the weeds, they're scaling. Recognize these pain points?</p>
+        </div>
+        <div class="problem-container">
+            <div class="problem-card">
+                <h3>Time Vampires</h3>
+                <p>Endless meetings, overflowing inboxes, repetitive tasks. Your most valuable asset—time—is being drained by $10/hour work.</p>
+            </div>
+            <div class="problem-card">
+                <h3>Growth Plateaus</h3>
+                <p>You've hit the ceiling. Scaling means more hires, more overhead, more headaches. The traditional way is broken.</p>
+            </div>
+            <div class="problem-card">
+                <h3>Burnout Culture</h3>
+                <p>Your best people are exhausted. The 80-hour work week isn't a badge of honor—it's a ticking time bomb.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- The Solution -->
+    <section id="solution" class="solution-section">
+        <div class="section-header">
+            <h2>Deploy Your AI Army</h2>
+            <p>Our agents integrate seamlessly, working 24/7 while your team focuses on what matters</p>
+        </div>
+        <div class="solution-content">
+            <div class="solution-text">
+                <h3>Strategic AI Leverage</h3>
+                <p>We don't just automate tasks—we deploy intelligent agents that learn, adapt, and outperform human capabilities in specific functions.</p>
+                
+                <div class="solution-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Diagnose & Strategize</h4>
+                            <p>We identify your highest-impact automation opportunities</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Build & Train</h4>
+                            <p>Custom AI agents crafted for your exact business needs</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Deploy & Scale</h4>
+                            <p>Seamless integration with continuous optimization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="solution-visual">
+                <div class="ai-agent">
+                    <div class="ai-core"></div>
+                    <div class="data-point" style="top: 20px; left: 50px;"></div>
+                    <div class="data-point" style="top: 20px; right: 50px;"></div>
+                    <div class="data-point" style="bottom: 20px; left: 50px;"></div>
+                    <div class="data-point" style="bottom: 20px; right: 50px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Use Cases -->
+    <section id="cases" class="use-cases">
+        <div class="section-header">
+            <h2>Precision-Built AI Agents</h2>
+            <p>Specialized digital workforce for exponential results</p>
+        </div>
+        <div class="cases-container">
+            <div class="case-card">
+                <div class="case-icon">🤖</div>
+                <h3>Lead Generation Agents</h3>
+                <p>Hyper-targeted prospecting that never sleeps. Identifies, qualifies, and nurtures leads 24/7.</p>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">5X</div>
+                        <div class="metric-label">More Leads</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">70%</div>
+                        <div class="metric-label">Cost Reduction</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="case-card">
+                <div class="case-icon">💬</div>
+                <h3>Customer Support Agents</h3>
+                <p>Instant resolution for 80% of inquiries. Human-like interactions with zero wait times.</p>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">24/7</div>
+                        <div class="metric-label">Availability</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">40%</div>
+                        <div class="metric-label">CSAT Increase</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="case-card">
+                <div class="case-icon">📊</div>
+                <h3>Research Analysts</h3>
+                <p>Market intelligence at machine speed. Real-time data processing and actionable insights.</p>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">1000+</div>
+                        <div class="metric-label">Sources Monitored</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">90%</div>
+                        <div class="metric-label">Time Saved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Social Proof -->
+    <section id="testimonials" class="social-proof">
+        <div class="proof-quote">
+            "While others talk about AI, Nexus deploys it. Our closers gained 18 hours per week. Our revenue team became 3x more productive. This isn't automation—it's unfair advantage."
+        </div>
+        <div class="quote-author">— MARK RODRIGUEZ, CEO AT VELOCITY GROWTH</div>
+        
+        <div class="logos">
+            <div class="logo-item">SaaS FOUNDERS</div>
+            <div class="logo-item">AGENCY OWNERS</div>
+            <div class="logo-item">E-COMMERCE DISRUPTORS</div>
+            <div class="logo-item">TECH UNICORNS</div>
+            <div class="logo-item">FINANCE LEADERS</div>
+        </div>
+    </section>
+    
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <h2>Stop Trading Time For Dollars.<br>Start Scaling With Intelligence.</h2>
+        <button class="cta-btn primary-cta" style="padding: 1.2rem 3rem; font-size: 1.3rem;">Claim Your AI Agents</button>
+        
+        <div class="scarcity-badge">ONLY 3 ONBOARDING SLOTS LEFT THIS WEEK</div>
+        
+        <div class="closing-statement">
+            You've been doing it the hard way. You deserve leverage. Let AI carry the weight.
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>© 2023 NEXUS AI AGENTS. ALL RIGHTS RESERVED. | RAISED $2M FROM FORWARD THINKING INVESTORS</p>
+    </footer>
+    
+    <script>
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#00f3ff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.2, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#8a2be2",
+                    opacity: 0.1,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            }
+        });
+        
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements
+            document.querySelectorAll('.problem-card, .case-card, .step, .solution-visual').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Scarcity timer
+            function updateScarcity() {
+                const slots = Math.max(0, Math.floor(Math.random() * 4));
+                document.querySelector('.scarcity-badge').textContent = 
+                    `ONLY ${slots} ONBOARDING SLOT${slots !== 1 ? 'S' : ''} LEFT THIS WEEK`;
+            }
+            
+            // Update every 30 seconds for demo purposes
+            setInterval(updateScarcity, 30000);
+        });
+    </script>
+</body>
+</html>
