@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus AI Agents | Scale Without Burnout</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --midnight-blue: #0a0f2b;
@@ -13,6 +14,10 @@
             --soft-purple: #8a2be2;
             --chrome-white: #f0f8ff;
             --deep-space: #05081f;
+            --accent-gold: #ffd700;
+            --danger-red: #ff4d6d;
+            --danger-pink: #ff8fa3;
+            --success-green: #2ecc71;
         }
         
         * {
@@ -22,17 +27,22 @@
         }
         
         body {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background: var(--deep-space);
             color: var(--chrome-white);
             overflow-x: hidden;
             line-height: 1.6;
         }
         
-        h1, h2, h3, h4, .cta-btn {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 800;
-            letter-spacing: 1px;
+        h1, h2, h3, h4, .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
         }
         
         /* Particle Background */
@@ -55,16 +65,16 @@
             background: rgba(10, 15, 43, 0.85);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            animation: fadeInDown 0.8s ease;
         }
         
         .logo {
-            font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
-            font-weight: 900;
+            font-weight: 800;
             background: linear-gradient(90deg, var(--neon-cyan), var(--soft-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
         
         .nav-links {
@@ -115,7 +125,6 @@
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
             line-height: 1.2;
-            text-transform: uppercase;
             background: linear-gradient(90deg, var(--chrome-white), var(--neon-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -145,7 +154,9 @@
             transition: all 0.3s ease;
             border: none;
             font-size: 1.1rem;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
         
         .primary-cta {
@@ -182,7 +193,6 @@
             background: linear-gradient(90deg, var(--neon-cyan), var(--soft-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
         }
         
         .section-header p {
@@ -198,6 +208,12 @@
             border-top: 1px solid rgba(0, 243, 255, 0.1);
             border-bottom: 1px solid rgba(0, 243, 255, 0.1);
         }
+
+        .problem-section .section-header h2 {
+            background: linear-gradient(90deg, var(--danger-red), var(--danger-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         
         .problem-container {
             display: flex;
@@ -208,22 +224,35 @@
         
         .problem-card {
             background: rgba(10, 15, 43, 0.5);
-            border: 1px solid rgba(0, 243, 255, 0.2);
+            border: 1px solid rgba(255, 77, 109, 0.3);
             border-radius: 15px;
             padding: 2.5rem;
             max-width: 350px;
             transition: all 0.4s ease;
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--danger-red), var(--danger-pink));
+            opacity: 0.7;
         }
         
         .problem-card:hover {
             transform: translateY(-10px);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.3);
         }
         
         .problem-card h3 {
-            color: var(--neon-cyan);
+            color: var(--danger-pink);
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
             display: flex;
@@ -231,111 +260,160 @@
             gap: 10px;
         }
         
-        .problem-card h3::before {
-            content: "⚠️";
-        }
-        
         .problem-card p {
             color: rgba(240, 248, 255, 0.8);
+        }
+
+        .problem-tag {
+            display: inline-block;
+            background: rgba(255, 77, 109, 0.2);
+            color: var(--danger-pink);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
         
         /* Solution Section */
         .solution-content {
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 4rem;
+            flex-direction: column;
+            gap: 3rem;
         }
         
-        .solution-text {
-            flex: 1;
-            min-width: 300px;
+        .solution-intro {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
         }
         
-        .solution-steps {
+        .solution-intro h3 {
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1.5rem;
+        }
+        
+        .solution-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
             margin-top: 2rem;
         }
         
-        .step {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            align-items: flex-start;
-        }
-        
-        .step-number {
-            font-family: 'Orbitron', sans-serif;
-            background: var(--midnight-blue);
-            color: var(--neon-cyan);
-            border: 2px solid var(--neon-cyan);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-        
-        .step-content h4 {
-            color: var(--neon-cyan);
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-        
-        .solution-visual {
-            flex: 1;
-            min-width: 300px;
+        .step-card {
+            background: rgba(10, 15, 43, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
             position: relative;
-            height: 400px;
+            overflow: hidden;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            height: 100%;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fadeInUp 0.6s forwards;
         }
         
-        .ai-agent {
-            position: relative;
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--soft-purple), transparent 70%);
-            box-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulse 4s infinite;
-        }
+        .step-card:nth-child(1) { animation-delay: 0.2s; }
+        .step-card:nth-child(2) { animation-delay: 0.4s; }
+        .step-card:nth-child(3) { animation-delay: 0.6s; }
         
-        .ai-core {
-            width: 100px;
-            height: 100px;
-            background: var(--neon-cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
-            position: relative;
-        }
-        
-        .ai-core::after {
+        .step-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            box-shadow: 0 0 50px var(--neon-cyan);
-            animation: pulseCore 2s infinite;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--soft-purple), var(--neon-cyan));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
         
-        .data-point {
+        .step-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+        
+        .step-number {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: var(--neon-cyan);
+            top: 20px;
+            right: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--midnight-blue);
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--neon-cyan);
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover .step-number {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+        
+        .step-content {
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .step-content h4 {
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.6s;
+        }
+        
+        .step-content p {
+            color: rgba(240, 248, 255, 0.8);
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.8s;
+        }
+        
+        .step-benefits {
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: auto;
+            animation: fadeIn 1s;
+        }
+        
+        .step-benefits ul {
+            list-style-type: none;
+            text-align: left;
+        }
+        
+        .step-benefits li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: rgba(240, 248, 255, 0.9);
+        }
+        
+        .step-benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: bold;
         }
         
         /* Use Cases */
@@ -359,7 +437,14 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fadeInUp 0.6s forwards;
         }
+        
+        .case-card:nth-child(1) { animation-delay: 0.1s; }
+        .case-card:nth-child(2) { animation-delay: 0.3s; }
+        .case-card:nth-child(3) { animation-delay: 0.5s; }
         
         .case-card::before {
             content: '';
@@ -387,6 +472,7 @@
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             color: var(--neon-cyan);
+            animation: float 3s ease-in-out infinite;
         }
         
         .case-card h3 {
@@ -411,7 +497,8 @@
         }
         
         .metric-value {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
             font-size: 1.8rem;
             color: var(--neon-cyan);
             line-height: 1;
@@ -424,7 +511,6 @@
         
         /* Social Proof */
         .social-proof {
-            text-align: center;
             padding: 4rem 5%;
         }
         
@@ -435,6 +521,9 @@
             font-style: italic;
             color: var(--chrome-white);
             position: relative;
+            text-align: left;
+            padding: 0 20px;
+            animation: fadeIn 1s ease;
         }
         
         .proof-quote::before, .proof-quote::after {
@@ -447,19 +536,22 @@
         
         .proof-quote::before {
             top: -30px;
-            left: -40px;
+            left: -10px;
         }
         
         .proof-quote::after {
             bottom: -60px;
-            right: -40px;
+            right: -10px;
         }
         
         .quote-author {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Poppins', sans-serif;
             color: var(--neon-cyan);
             font-size: 1.2rem;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            text-align: left;
+            padding: 0 20px;
+            animation: fadeIn 1.2s ease;
         }
         
         .logos {
@@ -469,10 +561,11 @@
             gap: 3rem;
             margin-top: 4rem;
             opacity: 0.8;
+            animation: fadeIn 1.4s ease;
         }
         
         .logo-item {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 1.2rem;
             color: var(--chrome-white);
             position: relative;
@@ -505,6 +598,7 @@
             background: linear-gradient(90deg, var(--chrome-white), var(--neon-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: fadeInDown 0.8s ease;
         }
         
         .closing-statement {
@@ -515,6 +609,7 @@
             font-style: italic;
             position: relative;
             padding: 2rem;
+            animation: fadeIn 1.2s ease;
         }
         
         .closing-statement::before {
@@ -536,9 +631,9 @@
             padding: 0.5rem 1.5rem;
             border-radius: 50px;
             margin-top: 2rem;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 0.9rem;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             animation: pulseScarcity 2s infinite;
         }
         
@@ -549,6 +644,7 @@
             border-top: 1px solid rgba(0, 243, 255, 0.1);
             font-size: 0.9rem;
             color: rgba(240, 248, 255, 0.6);
+            animation: fadeIn 1s ease;
         }
         
         /* Animations */
@@ -596,12 +692,31 @@
             50% { opacity: 1; transform: scale(1.05); }
             100% { opacity: 0.8; }
         }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes celebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
         
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 { font-size: 3rem; }
             .section-header h2 { font-size: 2.3rem; }
             .final-cta h2 { font-size: 2.8rem; }
+            .proof-quote { font-size: 1.5rem; }
         }
         
         @media (max-width: 768px) {
@@ -613,7 +728,6 @@
             .section-header h2 { font-size: 2rem; }
             .final-cta h2 { font-size: 2.2rem; }
             .closing-statement { font-size: 1.5rem; }
-            .proof-quote { font-size: 1.4rem; }
         }
         
         @media (max-width: 480px) {
@@ -623,7 +737,7 @@
             .section-header h2 { font-size: 1.8rem; }
             .final-cta h2 { font-size: 1.8rem; }
             .closing-statement { font-size: 1.2rem; }
-            .problem-card, .case-card { padding: 1.5rem; }
+            .problem-card, .case-card, .step-card { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -657,68 +771,87 @@
     <!-- The Problem -->
     <section class="problem-section">
         <div class="section-header">
-            <h2>You're bleeding time. Your competition isn't.</h2>
-            <p>While you're stuck in the weeds, they're scaling. Recognize these pain points?</p>
+            <h2>Critical Growth Obstacles</h2>
+            <p>These are the barriers holding back your potential - recognize them?</p>
         </div>
         <div class="problem-container">
             <div class="problem-card">
-                <h3>Time Vampires</h3>
-                <p>Endless meetings, overflowing inboxes, repetitive tasks. Your most valuable asset—time—is being drained by $10/hour work.</p>
+                <h3>Time Drains</h3>
+                <p>Endless meetings, overflowing inboxes, repetitive tasks. Your most valuable asset—time—is being drained by low-value work.</p>
+                <div class="problem-tag">COSTLY OBSTACLE</div>
             </div>
             <div class="problem-card">
-                <h3>Growth Plateaus</h3>
-                <p>You've hit the ceiling. Scaling means more hires, more overhead, more headaches. The traditional way is broken.</p>
+                <h3>Growth Ceilings</h3>
+                <p>You've hit the plateau. Scaling means more hires, more overhead, more headaches. The traditional growth model is broken.</p>
+                <div class="problem-tag">SCALING BARRIER</div>
             </div>
             <div class="problem-card">
                 <h3>Burnout Culture</h3>
-                <p>Your best people are exhausted. The 80-hour work week isn't a badge of honor—it's a ticking time bomb.</p>
+                <p>Your best people are exhausted. The 80-hour work week isn't sustainable—it's a leadership failure in disguise.</p>
+                <div class="problem-tag">TEAM RISK</div>
             </div>
         </div>
     </section>
     
-    <!-- The Solution -->
+    <!-- The Solution - Redesigned -->
     <section id="solution" class="solution-section">
         <div class="section-header">
             <h2>Deploy Your AI Army</h2>
             <p>Our agents integrate seamlessly, working 24/7 while your team focuses on what matters</p>
         </div>
         <div class="solution-content">
-            <div class="solution-text">
+            <div class="solution-intro">
                 <h3>Strategic AI Leverage</h3>
                 <p>We don't just automate tasks—we deploy intelligent agents that learn, adapt, and outperform human capabilities in specific functions.</p>
-                
-                <div class="solution-steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h4>Diagnose & Strategize</h4>
-                            <p>We identify your highest-impact automation opportunities</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h4>Build & Train</h4>
-                            <p>Custom AI agents crafted for your exact business needs</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h4>Deploy & Scale</h4>
-                            <p>Seamless integration with continuous optimization</p>
+            </div>
+            
+            <div class="solution-steps-grid">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Diagnose & Strategize</h4>
+                        <p>We identify your highest-impact automation opportunities through comprehensive analysis</p>
+                        <div class="step-benefits">
+                            <ul>
+                                <li>Process audit & opportunity mapping</li>
+                                <li>ROI projection modeling</li>
+                                <li>Custom automation strategy</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="solution-visual">
-                <div class="ai-agent">
-                    <div class="ai-core"></div>
-                    <div class="data-point" style="top: 20px; left: 50px;"></div>
-                    <div class="data-point" style="top: 20px; right: 50px;"></div>
-                    <div class="data-point" style="bottom: 20px; left: 50px;"></div>
-                    <div class="data-point" style="bottom: 20px; right: 50px;"></div>
+                
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Build & Train</h4>
+                        <p>Custom AI agents crafted for your exact business needs and workflows</p>
+                        <div class="step-benefits">
+                            <ul>
+                                <li>Specialized agent development</li>
+                                <li>Proprietary training protocols</li>
+                                <li>Continuous learning architecture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Deploy & Scale</h4>
+                        <p>Seamless integration with continuous optimization and scaling</p>
+                        <div class="step-benefits">
+                            <ul>
+                                <li>Phased deployment strategy</li>
+                                <li>Real-time performance monitoring</li>
+                                <li>Automated scaling protocols</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -784,8 +917,9 @@
     <!-- Social Proof -->
     <section id="testimonials" class="social-proof">
         <div class="proof-quote">
-            "AI isn’t the future, it’s happening now. While others hesitate, we lead the charge, building AI agents that work for you 24/7. We don’t just keep pace, we guarantee you’ll never fall behind. This is your moment to seize an unfair advantage, to multiply your productivity, and to transform your business. Join us, and together we’ll ensure you don’t just survive the AI revolution, you dominate it."
+            "AI isn't the future, it's happening now. While others hesitate, we lead the charge, building AI agents that work for you 24/7. We don't just keep pace, we guarantee you'll never fall behind. This is your moment to seize an unfair advantage, to multiply your productivity, and to transform your business. Join us, and together we'll ensure you don't just survive the AI revolution, you dominate it."
         </div>
+        <div class="quote-author">— NEXUS AI FOUNDING TEAM</div>
         
         <div class="logos">
             <div class="logo-item">SaaS FOUNDERS</div>
@@ -799,9 +933,9 @@
     <!-- Final CTA -->
     <section class="final-cta">
         <h2>Stop Trading Time For Dollars.<br>Start Scaling With Intelligence.</h2>
-        <button class="cta-btn primary-cta" style="padding: 1.2rem 3rem; font-size: 1.3rem;">Claim Your AI Agents</button>
+        <button class="cta-btn primary-cta" style="padding: 1.2rem 3rem; font-size: 1.3rem;" id="finalCta">Claim Your AI Agents</button>
         
-        <div class="scarcity-badge">ONLY 3 ONBOARDING SLOTS LEFT THIS WEEK</div>
+        <div class="scarcity-badge" id="scarcityBadge">ONLY 3 ONBOARDING SLOTS LEFT THIS WEEK</div>
         
         <div class="closing-statement">
             You've been doing it the hard way. You deserve leverage. Let AI carry the weight.
@@ -849,6 +983,20 @@
             }
         });
         
+        // Final CTA click
+        document.getElementById('finalCta').addEventListener('click', () => {
+            // Show celebration
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 }
+            });
+            
+            // Scarcity badge animation
+            const badge = document.getElementById('scarcityBadge');
+            badge.style.animation = 'pulseScarcity 1.5s infinite';
+        });
+        
         // Animation on scroll
         document.addEventListener('DOMContentLoaded', function() {
             const observerOptions = {
@@ -866,19 +1014,22 @@
             }, observerOptions);
             
             // Observe elements
-            document.querySelectorAll('.problem-card, .case-card, .step, .solution-visual').forEach(el => {
+            document.querySelectorAll('.problem-card, .case-card, .step-card').forEach(el => {
                 observer.observe(el);
             });
+        });
+        
+        // Step card hover effect
+        document.querySelectorAll('.step-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.querySelector('.step-number').style.transform = 'scale(1.1)';
+                card.querySelector('.step-number').style.boxShadow = '0 0 15px var(--neon-cyan)';
+            });
             
-            // Scarcity timer
-            function updateScarcity() {
-                const slots = Math.max(0, Math.floor(Math.random() * 4));
-                document.querySelector('.scarcity-badge').textContent = 
-                    `ONLY ${slots} ONBOARDING SLOT${slots !== 1 ? 'S' : ''} LEFT THIS WEEK`;
-            }
-            
-            // Update every 30 seconds for demo purposes
-            setInterval(updateScarcity, 30000);
+            card.addEventListener('mouseleave', () => {
+                card.querySelector('.step-number').style.transform = 'scale(1)';
+                card.querySelector('.step-number').style.boxShadow = 'none';
+            });
         });
     </script>
 </body>
