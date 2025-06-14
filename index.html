@@ -241,21 +241,87 @@
             border: 1px solid var(--light-purple);
             border-radius: 20px;
             padding: 2.5rem;
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.4s ease;
             box-shadow: 0 5px 20px rgba(112, 0, 255, 0.08);
             opacity: 0;
             transform: translateY(30px);
         }
 
         .grind-card:hover, .step-card:hover, .case-card:hover {
-            transform: translateY(-10px) !important; /* Use important to override JS animation state */
+            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(112, 0, 255, 0.15);
         }
-
+        
         .is-visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        .grind-card h3 { color: var(--primary-purple); font-size: 1.5rem; margin-bottom: 1rem; }
+        
+        .step-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            background: var(--light-purple);
+            color: var(--primary-purple);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover .step-number {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, var(--light-purple), #d0b1ff);
+        }
+        
+        .step-card h4 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--dark-text); }
+        .step-card p { color: var(--light-text); margin-bottom: 1.5rem; }
+        
+        .use-cases { background: linear-gradient(180deg, transparent, rgba(233, 217, 255, 0.2)); }
+        
+        .case-card { text-align: center; }
+
+        .case-card:hover h3 { color: var(--primary-purple); }
+        .case-icon {
+            font-size: 3rem; line-height: 1; margin-bottom: 1.5rem;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 80px; height: 80px; border-radius: 50%;
+            background: var(--light-purple); color: var(--primary-purple);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .case-card h3 { font-size: 1.6rem; margin-bottom: 1rem; color: var(--dark-text); transition: all 0.3s ease; }
+        .case-card p { color: var(--light-text); margin-bottom: 1.5rem; min-height: 80px; }
+        
+        .social-proof { padding: 4rem 5%; }
+        .proof-quote {
+            font-size: 2rem; font-family: 'Poppins', sans-serif; font-weight: 600;
+            max-width: 800px; margin: 0 auto 2rem; line-height: 1.4;
+            color: var(--dark-text); text-align: center; position: relative;
+        }
+        .proof-quote::before {
+            content: '“'; position: absolute; top: -1rem; left: -1rem;
+            font-size: 6rem; color: var(--light-purple); z-index: -1; opacity: 0.8;
+        }
+        .quote-author { text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--primary-purple); }
+        
+        .final-cta { padding: 8rem 5%; text-align: center; position: relative; overflow: hidden; }
+        .final-cta::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(112, 0, 255, 0.1), transparent 70%);
+            z-index: -1;
+        }
+        .final-cta h2 { font-size: 3.5rem; max-width: 800px; margin: 0 auto 3rem; color: var(--dark-text); }
+        .closing-statement { font-size: 1.5rem; margin-top: 4rem; max-width: 600px; margin-left: auto; margin-right: auto; color: var(--light-text); font-weight: 500; }
+        
+        footer { padding: 3rem 5%; text-align: center; background-color: var(--light-purple); color: var(--primary-purple); font-weight: 500; }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         
         .hamburger {
             display: none; background: none; border: none;
@@ -265,6 +331,12 @@
         .sr-only {
             position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
             overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3rem; }
+            .section-header h2, .final-cta h2 { font-size: 2.5rem; }
+            .proof-quote { font-size: 1.7rem; }
         }
 
         @media (max-width: 768px) {
@@ -283,9 +355,6 @@
             .cta-btn { width: 100%; max-width: 300px; }
             .cases-container, .grind-container, .solution-steps-grid { grid-template-columns: 1fr; }
         }
-        
-        /* Other styles for cards, sections, etc. remain the same */
-        
     </style>
 </head>
 <body>
@@ -306,20 +375,80 @@
             <h1>Stop Running in Circles. Start <span class="highlight">Unlocking Your Genius.</span></h1>
             <p>You've been doing it the hard way. Let AI carry the weight.</p>
             <div class="cta-container">
-                <button class="cta-btn primary-cta">Unleash My Potential</button>
+                <button class="cta-btn primary-cta" id="finalCta">Unleash My Potential</button>
                 <button class="cta-btn secondary-cta">See it in Action</button>
             </div>
         </div>
     </section>
     
     <section id="grind" class="grind-section">
-        </section>
+        <div class="section-header">
+            <h2>Does This Grind Sound Familiar?</h2>
+            <p>It's the invisible force that pulls great founders down. The quicksand of "busy work" that suffocates big ideas.</p>
+        </div>
+        <div class="grind-container">
+            <div class="grind-card">
+                <h3>The Hamster Wheel of Tasks</h3>
+                <p>Your day is a blur of emails, reports, and follow-ups. You're working *in* the business, not *on* it. Your true work never gets done.</p>
+            </div>
+            <div class="grind-card">
+                <h3>The Growth Paradox</h3>
+                <p>To grow, you need to hire. But hiring means more management, more overhead, and less freedom. You're trapped, and scaling feels impossible.</p>
+            </div>
+            <div class="grind-card">
+                <h3>The Energy Drain</h3>
+                <p>Your passion is fading, replaced by exhaustion. Your team feels it too. Greatness can't be sustained on fumes.</p>
+            </div>
+        </div>
+    </section>
     
     <section id="advantage" class="solution-section">
-        </section>
+        <div class="section-header">
+            <h2>Your New Unfair Advantage</h2>
+            <p>We give you back your most valuable asset: your time and focus. Here’s how we help you break free.</p>
+        </div>
+        <div class="solution-steps-grid">
+            <div class="step-card">
+                <div class="step-number">Step 1</div>
+                <h4>We Find the Friction</h4>
+                <p>We start with a conversation, not a sales pitch. We listen and pinpoint the exact bottlenecks that are holding you back.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">Step 2</div>
+                <h4>We Build Your Teammate</h4>
+                <p>We craft a custom AI Agent, a true digital partner designed to perfectly handle your unique, repetitive tasks with precision and care.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">Step 3</div>
+                <h4>You Experience Freedom</h4>
+                <p>Your new teammate works 24/7, freeing you up to strategize, create, and lead. You don't just get automation; you get your future back.</p>
+            </div>
+        </div>
+    </section>
     
     <section id="cases" class="use-cases">
-        </section>
+        <div class="section-header">
+            <h2>Meet Your Future AI Teammates</h2>
+            <p>Specialized digital workforce for exponential results</p>
+        </div>
+        <div class="cases-container">
+            <div class="case-card">
+                <div class="case-icon">🤖<span class="sr-only">Lead Generation Icon</span></div>
+                <h3>Lead Generation Agents</h3>
+                <p>Hyper-targeted prospecting that never sleeps. Identifies, qualifies, and nurtures leads 24/7.</p>
+            </div>
+            <div class="case-card">
+                <div class="case-icon">💬<span class="sr-only">Customer Support Icon</span></div>
+                <h3>Customer Support Agents</h3>
+                <p>Instant resolution for 80% of inquiries. Human-like interactions with zero wait times.</p>
+            </div>
+            <div class="case-card">
+                <div class="case-icon">📊<span class="sr-only">Research Analyst Icon</span></div>
+                <h3>Research Analysts</h3>
+                <p>Market intelligence at machine speed. Real-time data processing and actionable insights.</p>
+            </div>
+        </div>
+    </section>
 
     <section id="proof" class="social-proof">
         <div class="proof-quote">
@@ -329,20 +458,62 @@
     </section>
     
     <section class="final-cta">
-        </section>
+        <h2>Ready to break free from the grind?</h2>
+        <button class="cta-btn primary-cta" style="padding: 1.2rem 3rem; font-size: 1.3rem;">Let's Partner Up</button>
+        <div class="closing-statement">
+            You've been doing it the hard way. You deserve leverage. Let AI carry the weight.
+        </div>
+    </section>
     
     <footer>
         <p>© 2025 NEXUS. Let's Build Something Great.</p>
     </footer>
     
     <script>
-        // Hamburger Menu, Particles.js, and Confetti scripts remain the same
+        // Hamburger Menu Toggle
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Initialize Particles.js only if the element exists
+        if (document.getElementById('particles-js')) {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 40, density: { enable: true, value_area: 800 } },
+                    color: { value: "#7000FF" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.2, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#7000FF", opacity: 0.1, width: 1 },
+                    move: { enable: true, speed: 1.5, direction: "none", random: true, straight: false, out_mode: "out", bounce: false }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true }
+                }
+            });
+        }
+        
+        // Final CTA confetti (with safeguard)
+        document.querySelectorAll('.primary-cta').forEach(button => {
+            button.addEventListener('click', () => {
+                if(typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 150,
+                        spread: 80,
+                        origin: { y: 0.6 },
+                        colors: ['#7000FF', '#E9D9FF', '#FFD700']
+                    });
+                }
+            });
+        });
         
         // Animate elements on scroll (Intersection Observer)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Optional: stop observing once visible
                 }
             });
         }, { threshold: 0.1 });
