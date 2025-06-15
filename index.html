@@ -150,7 +150,7 @@
         }
         .case-icon { font-size: 3rem; line-height: 1; margin-bottom: 1.5rem; display: inline-block; }
         .case-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--dark-text); }
-        .case-card p { color: var(--light-text); }
+        .case-card p { color: var(--light-text); min-height: 110px; }
         
         .pricing-display { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--light-purple); }
         .price-amount { font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary-purple); }
@@ -348,55 +348,19 @@
         if (document.getElementById('particles-js')) {
             particlesJS('particles-js', {
                 "particles": {
-                    "number": {
-                        "value": 40,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#7000FF"
-                    },
-                    "shape": {
-                        "type": "circle"
-                    },
-                    "opacity": {
-                        "value": 0.2,
-                        "random": true
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#7000FF",
-                        "opacity": 0.1,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 1.5,
-                        "direction": "none",
-                        "random": true,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false
-                    }
+                    "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": "#7000FF" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.2, "random": true },
+                    "size": { "value": 3, "random": true },
+                    "line_linked": { "enable": true, "distance": 150, "color": "#7000FF", "opacity": 0.1, "width": 1 },
+                    "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false }
                 },
                 "interactivity": {
                     "detect_on": "canvas",
                     "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "grab"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
+                        "onhover": { "enable": true, "mode": "grab" },
+                        "onclick": { "enable": true, "mode": "push" },
                         "resize": true
                     }
                 }
@@ -406,13 +370,13 @@
         // Confetti for all primary CTAs
         document.querySelectorAll('.primary-cta').forEach(button => {
             button.addEventListener('click', () => {
-                // NOTE: Remember to replace this with your actual Calendly link
+                // IMPORTANT: Replace this placeholder with your actual Calendly link!
                 window.location.href = 'https://calendly.com/your-link';
 
                 if(typeof confetti === 'function') {
                     confetti({
                         particleCount: 150, spread: 80, origin: { y: 0.6 },
-                        colors: ['#7000FF', '#E9D9FF', '#FFD700']
+                        colors: ['#7000FF', '#E9D9FF']
                     });
                 }
             });
