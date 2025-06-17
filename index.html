@@ -1,386 +1,551 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prometheus Automation | Making Your Business Growth Inevitable</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <style>
-        :root {
-            --background-white: #fdfcff;
-            --primary-purple: #7000FF;
-            --light-purple: #E9D9FF;
-            --dark-text: #21202c;
-            --light-text: #6d6c77;
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--background-white);
-            color: var(--dark-text);
-            overflow-x: hidden;
-            line-height: 1.7;
-        }
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { CheckCircle, ArrowRight, Zap, Target, TrendingUp, Clock, Lightbulb, Cog, Rocket, Star, Crown, Shield, Mountain, Sparkles, Brain, Users, MessageSquare, BarChart3, Bot, Workflow, Calendar, Flame, Eye, Hammer, Sun, Moon, Cpu } from "lucide-react";
 
-        body::before {
-            content: ''; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(circle at 10% 20%, var(--light-purple), transparent 40%),
-                        radial-gradient(circle at 90% 80%, rgba(112, 0, 255, 0.1), transparent 40%);
-            animation: breath 12s ease-in-out infinite;
-        }
+const Index = () => {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-gray-950 to-black relative overflow-hidden">
+      {/* Constellation Background */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-20 w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+        <div className="absolute top-40 right-32 w-1 h-1 bg-amber-300 rounded-full animate-pulse delay-300"></div>
+        <div className="absolute top-60 left-1/3 w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse delay-700"></div>
+        <div className="absolute bottom-40 right-20 w-2 h-2 bg-amber-400 rounded-full animate-pulse delay-1000"></div>
+        <div className="absolute bottom-60 left-1/4 w-1 h-1 bg-amber-300 rounded-full animate-pulse delay-500"></div>
+      </div>
 
-        @keyframes breath {
-            0% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.1); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 0.3; }
-        }
-        
-        h1, h2, h3, h4, .logo { font-family: 'Poppins', sans-serif; font-weight: 700; }
-        .cta-btn { font-family: 'Poppins', sans-serif; font-weight: 600; }
-        
-        .navbar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1.5rem 5%; position: fixed; width: 100%; z-index: 100;
-            background: rgba(253, 252, 255, 0.8); backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(112, 0, 255, 0.1);
-            animation: fadeInDown 0.8s ease;
-        }
-        
-        .logo {
-            font-size: 1.8rem; font-weight: 800;
-            background: var(--primary-purple);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .nav-links { display: flex; gap: 2.5rem; }
-        .nav-links a {
-            color: var(--dark-text); text-decoration: none; font-weight: 600;
-            font-size: 1rem; transition: all 0.3s ease; position: relative;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -5px; left: 0;
-            width: 0; height: 2px; background: var(--primary-purple);
-            transition: width 0.3s ease;
-        }
-        .nav-links a:hover::after { width: 100%; }
-        
-        .hero {
-            min-height: 100vh; display: flex; align-items: center;
-            text-align: center; justify-content: center; padding: 100px 5% 0;
-            position: relative;
-        }
-        #particles-js {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; z-index: 1;
-        }
-        .hero-content { max-width: 900px; z-index: 10; position: relative; }
-        .hero h1 {
-            font-size: 4rem; margin-bottom: 1.5rem; line-height: 1.2;
-            color: var(--dark-text); animation: fadeInUp 1s ease forwards; opacity: 0;
-        }
-        .hero .highlight {
-            background: linear-gradient(90deg, var(--primary-purple), #C07EFF);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            position: relative; display: inline-block;
-        }
-        .hero .highlight::after {
-            content: ''; position: absolute; bottom: -5px; left: 5%;
-            width: 90%; height: 4px;
-            background: linear-gradient(90deg, var(--primary-purple), #C07EFF);
-            border-radius: 2px; animation: underlinePulse 3s ease-in-out infinite;
-        }
+      {/* Marble Texture Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-950/5 via-transparent to-amber-900/10"></div>
 
-        @keyframes underlinePulse {
-            0% { width: 90%; left: 5%; opacity: 0.8; }
-            50% { width: 100%; left: 0%; opacity: 1; }
-            100% { width: 90%; left: 5%; opacity: 0.8; }
-        }
-
-        .hero p {
-            font-size: 1.3rem; max-width: 700px; margin: 0 auto 2.5rem auto;
-            color: var(--light-text); animation: fadeInUp 1.2s ease forwards; opacity: 0;
-        }
-        
-        .cta-container {
-            display: flex; gap: 1rem; justify-content: center;
-            animation: fadeInUp 1.4s ease forwards; opacity: 0;
-        }
-        .cta-btn {
-            padding: 1.1rem 2.5rem; border-radius: 50px; font-weight: 700;
-            cursor: pointer; transition: all 0.3s ease;
-            border: 2px solid transparent; font-size: 1.1rem; letter-spacing: 0.5px;
-        }
-        .primary-cta {
-            background: var(--primary-purple); color: var(--background-white);
-            box-shadow: 0 10px 25px rgba(112, 0, 255, 0.2);
-        }
-        .secondary-cta {
-            background: transparent; color: var(--primary-purple);
-            border-color: var(--primary-purple);
-        }
-        .cta-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(112, 0, 255, 0.25);
-        }
-        
-        section { padding: 7rem 5%; position: relative; }
-        .section-header { text-align: center; margin-bottom: 4rem; }
-        .section-header h2 { font-size: 3rem; margin-bottom: 1.5rem; color: var(--dark-text); }
-        .section-header p { max-width: 600px; margin: 0 auto; font-size: 1.2rem; color: var(--light-text); }
-        
-        .use-cases { background: linear-gradient(180deg, rgba(233, 217, 255, 0.2), transparent); }
-        .cases-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem; justify-content: center;
-        }
-        .case-card {
-            background: #fff; border: 1px solid var(--light-purple); border-radius: 20px;
-            padding: 2.5rem; transition: all 0.4s ease; text-align: center;
-            box-shadow: 0 5px 15px rgba(112, 0, 255, 0.05);
-        }
-        .case-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(112, 0, 255, 0.15);
-        }
-        .case-icon { font-size: 3rem; line-height: 1; margin-bottom: 1.5rem; display: inline-block; }
-        .case-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--dark-text); }
-        .case-card p { color: var(--light-text); min-height: 110px; }
-        
-        .pricing-display { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--light-purple); }
-        .price-amount { font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary-purple); }
-        .price-period { font-size: 1rem; color: var(--light-text); margin-left: 0.5rem; }
-        .featured-card {
-            position: relative; border: 2px solid var(--primary-purple);
-            transform: scale(1.05); box-shadow: 0 20px 40px rgba(112, 0, 255, 0.15);
-        }
-        .featured-badge {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            background: var(--primary-purple); color: white; padding: 0.5rem 1.5rem;
-            border-radius: 50px; font-size: 0.9rem; font-weight: 700;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .social-proof { padding: 4rem 5%; }
-        .proof-quote {
-            font-size: 2rem; font-family: 'Poppins', sans-serif; font-weight: 600;
-            max-width: 800px; margin: 0 auto 2rem; line-height: 1.4;
-            color: var(--dark-text); text-align: center; position: relative;
-        }
-        .proof-quote::before {
-            content: '“'; position: absolute; top: -1rem; left: -1rem;
-            font-size: 6rem; color: var(--light-purple); z-index: -1; opacity: 0.8;
-        }
-        .quote-author { text-align: center; font-size: 1.2rem; font-weight: 600; color: var(--primary-purple); }
-        
-        .final-cta { padding: 8rem 5%; text-align: center; }
-        .final-cta h2 { font-size: 3.5rem; max-width: 800px; margin: 0 auto; margin-bottom: 2rem; }
-        .final-cta .closing-statement {
-            font-size: 1.5rem; margin: 0 auto 3rem; max-width: 800px;
-            font-weight: 500; color: var(--light-text); line-height: 1.6;
-        }
-        
-        footer { padding: 3rem 5%; text-align: center; background-color: var(--light-purple); color: var(--primary-purple); font-weight: 500; }
-
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .hamburger { display: none; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--dark-text); }
-        .sr-only {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
-        }
-
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 3rem; }
-            .section-header h2, .final-cta h2 { font-size: 2.5rem; }
-        }
-        @media (max-width: 768px) {
-            .nav-links { 
-                display: none; flex-direction: column; gap: 1.5rem;
-                background: rgba(253, 252, 255, 0.95); position: absolute;
-                top: 75px; left: 0; width: 100%; padding: 2rem 0;
-                backdrop-filter: blur(5px);
-            }
-            .nav-links.active { display: flex; }
-            .hamburger { display: block; }
-            .hero h1 { font-size: 2.5rem; }
-            .cta-container { flex-direction: column; align-items: center; }
-            .cta-btn { width: 100%; max-width: 300px; }
-            .cases-container { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
-<body>
-    
-    <nav class="navbar">
-        <div class="logo">Prometheus</div>
-        <div class="nav-links" id="navLinks">
-            <a href="#grind">The Grind</a>
-            <a href="#advantage">Our Process</a>
-            <a href="#cases">Pricing</a>
-        </div>
-        <button class="hamburger" id="hamburger">&#9776;</button>
-    </nav>
-    
-    <section class="hero">
-        <div id="particles-js"></div>
-        <div class="hero-content">
-            <h1>Stop Hoping for Growth. <span class="highlight">Start Making It Inevitable.</span></h1>
-            <p>You're an innovator, a builder, a visionary. But the daily grind is stealing your time and energy. We build your perfect AI teammate to handle the repetitive work, so you can get back to doing what only you can do.</p>
-            <div class="cta-container">
-                <button class="cta-btn primary-cta">Book My Free Discovery Call</button>
-                <button class="cta-btn secondary-cta">See a 2-Min Demo</button>
-            </div>
-        </div>
-    </section>
-    
-    <section id="grind" class="grind-section">
-        <div class="section-header">
-            <h2>Does This Grind Sound Familiar?</h2>
-            <p>It's the invisible force that pulls great founders down. The quicksand of "busy work" that suffocates big ideas and makes success feel like a constant struggle.</p>
-        </div>
-        <div class="cases-container">
-            <div class="case-card">
-                <h3>The Hamster Wheel of Tasks</h3>
-                <p>Your day is a blur of emails, reports, and follow-ups. You're working *in* the business, not *on* it. Your true work never gets done.</p>
-            </div>
-            <div class="case-card">
-                <h3>The Growth Paradox</h3>
-                <p>To grow, you need to hire. But hiring means more management, more overhead, and less freedom. You're trapped, and scaling feels impossible.</p>
-            </div>
-            <div class="case-card">
-                <h3>The Energy Drain</h3>
-                <p>Your passion is fading, replaced by exhaustion. Your team feels it too. Greatness can't be sustained on fumes.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="advantage" class="solution-section">
-        <div class="section-header">
-            <h2>Our 3-Step Path to Inevitable Scale</h2>
-            <p>We don't sell software; we deliver certainty. This is our proven process for making your operational success a logical outcome.</p>
-        </div>
-        <div class="cases-container">
-            <div class="case-card">
-                <div class="case-icon">1.</div>
-                <h3>Strategy & Mapping</h3>
-                <p>We start with a 90-minute deep dive to identify the single highest-ROI workflow to automate, defining clear KPIs for success.</p>
-            </div>
-            <div class="case-card">
-                <div class="case-icon">2.</div>
-                <h3>Build & Deploy</h3>
-                <p>Our team builds your custom agent in a secure, isolated environment and integrates it seamlessly with your existing tools.</p>
-            </div>
-            <div class="case-card">
-                <div class="case-icon">3.</div>
-                <h3>Inevitable Performance</h3>
-                <p>We provide ongoing monitoring, maintenance, and monthly performance reports. As you grow, your agent scales with you.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="cases" class="use-cases">
-        <div class="section-header">
-            <h2>Choose Your Automation Tier</h2>
-            <p>We structure our partnerships to match your ambition, from automating a single task to transforming an entire department.</p>
-        </div>
-        <div class="cases-container">
-            <div class="case-card">
-                <div class="case-icon">🚀<span class="sr-only">Agent Starter Tier</span></div>
-                <h3>Agent Starter</h3>
-                <p>Make consistent output inevitable. We'll deploy a core agent to handle one critical task with flawless precision, 24/7.</p>
-                <div class="pricing-display">
-                    <span class="price-amount">$1,500</span><span class="price-period">/month</span>
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-xl border-b border-amber-500/20">
+        <div className="container mx-auto px-6 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <div className="w-14 h-14 bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-2xl shadow-amber-500/30">
+                  <Flame className="w-8 h-8 text-black font-bold" />
                 </div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-amber-400 to-amber-600 rounded-xl blur opacity-30 animate-pulse"></div>
+              </div>
+              <div>
+                <span className="text-3xl font-serif font-bold bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+                  Prometheus
+                </span>
+                <div className="text-sm text-amber-200/70 font-light">Automation</div>
+              </div>
             </div>
-            <div class="case-card featured-card">
-                <div class="featured-badge">MOST POPULAR</div>
-                <div class="case-icon">🤝<span class="sr-only">Growth Partner Tier</span></div>
-                <h3>Growth Partner</h3>
-                <p>Make your sales pipeline inevitable. We'll deploy an integrated suite of agents to run your lead generation or customer onboarding system on autopilot.</p>
-                <div class="pricing-display">
-                    <span class="price-amount">$4,000</span><span class="price-period">/month</span>
-                </div>
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#agents" className="text-amber-100 hover:text-amber-300 transition-colors font-medium">The Agents</a>
+              <a href="#philosophy" className="text-amber-100 hover:text-amber-300 transition-colors font-medium">Philosophy</a>
+              <a href="#capabilities" className="text-amber-100 hover:text-amber-300 transition-colors font-medium">Capabilities</a>
+              <a href="#pricing" className="text-amber-100 hover:text-amber-300 transition-colors font-medium">Pricing</a>
             </div>
-            <div class="case-card">
-                <div class="case-icon">⚙️<span class="sr-only">Performance Scale Tier</span></div>
-                <h3>Performance Scale</h3>
-                <p>A fully custom ecosystem with deep API integrations and dedicated support, designed to transform a major business unit.</p>
-                <div class="pricing-display">
-                    <span class="price-amount">Custom</span><span class="price-period">Let's Talk</span>
-                </div>
-            </div>
+            <Button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-black font-bold px-8 py-3 rounded-lg transition-all duration-300 shadow-xl shadow-amber-500/30 hover:shadow-2xl hover:shadow-amber-500/40">
+              <Flame className="w-4 h-4 mr-2" />
+              Harness the Fire
+            </Button>
+          </div>
         </div>
-    </section>
+      </nav>
 
-    <section id="proof" class="social-proof">
-        <div class="proof-quote">
-            The future isn't about you vs. automation. It's about your vision, amplified by intelligence. We build AI teammates that execute the day-to-day, so you can focus on the strategic moves that win the market.
-        </div>
-        <div class="quote-author">— The Prometheus Automation Team</div>
-    </section>
-    
-    <section class="final-cta">
-        <h2>Ready to Make Your Success a System, Not a Struggle?</h2>
-        <div class="closing-statement">
-            Schedule a 30-minute discovery call. We'll diagnose the primary bottleneck holding you back and map out the first step toward making your operational excellence inevitable.
-        </div>
-        <button class="cta-btn primary-cta">Book My Free Discovery Call</button>
-    </section>
-    
-    <footer>
-        <p>© 2025 Prometheus Automation. Let's Build Something Great.</p>
-    </footer>
-    
-    <script>
-        // Hamburger Menu Toggle
-        document.getElementById('hamburger').addEventListener('click', function() {
-            document.getElementById('navLinks').classList.toggle('active');
-        });
-
-        // Particles.js
-        if (document.getElementById('particles-js')) {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
-                    "color": { "value": "#7000FF" },
-                    "shape": { "type": "circle" },
-                    "opacity": { "value": 0.2, "random": true },
-                    "size": { "value": 3, "random": true },
-                    "line_linked": { "enable": true, "distance": 150, "color": "#7000FF", "opacity": 0.1, "width": 1 },
-                    "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": { "enable": true, "mode": "grab" },
-                        "onclick": { "enable": true, "mode": "push" },
-                        "resize": true
-                    }
-                }
-            });
-        }
+      {/* Hero Section */}
+      <section className="pt-40 pb-32 px-6 relative">
+        <div className="absolute top-32 left-1/4 w-96 h-96 bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-60 right-1/3 w-80 h-80 bg-gradient-to-r from-amber-600/10 to-yellow-500/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
         
-        // Confetti for all primary CTAs
-        document.querySelectorAll('.primary-cta').forEach(button => {
-            button.addEventListener('click', () => {
-                // IMPORTANT: Replace this placeholder with your actual Calendly link!
-                window.location.href = 'https://calendly.com/your-link';
+        <div className="container mx-auto text-center max-w-6xl relative">
+          <div className="mb-12">
+            <Badge className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-200 border-amber-400/40 px-8 py-4 text-lg font-serif rounded-full shadow-lg shadow-amber-500/20">
+              <Sparkles className="w-5 h-5 mr-3" />
+              The New Pantheon of Intelligence
+            </Badge>
+          </div>
+          
+          <h1 className="text-7xl md:text-9xl font-serif font-black text-white mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-orange-400 bg-clip-text text-transparent">
+              Ignite Your Future
+            </span>
+            <span className="block text-6xl md:text-7xl mt-4 text-amber-100/90">
+              with Myth-Forged AI
+            </span>
+          </h1>
+          
+          <p className="text-2xl md:text-3xl text-amber-100/80 mb-16 leading-relaxed max-w-5xl mx-auto font-light">
+            Where ancient wisdom meets cutting-edge intelligence. We are the gods of automation, 
+            bringing divine fire to transform your business into legend.
+          </p>
+          
+          <Button size="lg" className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-black font-bold px-16 py-8 rounded-xl transition-all duration-300 shadow-2xl shadow-amber-500/40 hover:shadow-3xl hover:shadow-amber-500/50 transform hover:scale-105 text-xl">
+            <Flame className="mr-4 w-7 h-7" />
+            Begin Your Ascension
+            <ArrowRight className="ml-4 w-7 h-7" />
+          </Button>
+        </div>
+      </section>
 
-                if(typeof confetti === 'function') {
-                    confetti({
-                        particleCount: 150, spread: 80, origin: { y: 0.6 },
-                        colors: ['#7000FF', '#E9D9FF']
-                    });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+      {/* Philosophy Section */}
+      <section id="philosophy" className="py-32 px-6 bg-gradient-to-r from-black/50 to-gray-950/50 relative">
+        <div className="container mx-auto max-w-6xl text-center relative">
+          <div className="bg-gradient-to-br from-amber-950/20 via-gray-900/40 to-amber-950/20 rounded-3xl p-20 border border-amber-400/20 backdrop-blur-xl shadow-2xl shadow-amber-500/10 relative overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute top-8 left-8 w-20 h-20 border-2 border-amber-400/30 rotate-45 rounded-lg"></div>
+            <div className="absolute top-8 right-8 w-16 h-16 border border-amber-300/30 rounded-full"></div>
+            <div className="absolute bottom-8 left-8 w-16 h-16 border border-amber-400/25 rotate-12 rounded-lg"></div>
+            <div className="absolute bottom-8 right-8 w-18 h-18 border-2 border-amber-500/20 rounded-full"></div>
+            
+            <div className="relative">
+              <div className="w-24 h-24 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-16 shadow-2xl shadow-amber-500/50">
+                <Flame className="w-12 h-12 text-black" />
+              </div>
+              <blockquote className="text-3xl md:text-5xl font-serif font-light text-amber-100 leading-relaxed mb-16 italic relative">
+                <span className="text-8xl text-amber-400/50 absolute -top-8 -left-8 font-serif">"</span>
+                In the beginning, Prometheus stole fire from the gods to empower humanity. 
+                Today, we steal the lightning of artificial intelligence to elevate your empire. 
+                We are not mere consultants—we are the architects of digital divinity.
+                <span className="text-8xl text-amber-400/50 absolute -bottom-12 -right-8 font-serif">"</span>
+              </blockquote>
+              <div className="w-40 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-12"></div>
+              <p className="text-amber-300 text-2xl font-medium font-serif">
+                — The Prometheus Doctrine
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Agents Section */}
+      <section id="agents" className="py-32 px-6 relative">
+        <div className="container mx-auto">
+          <div className="text-center mb-24">
+            <h2 className="text-6xl md:text-7xl font-serif font-bold text-white mb-8">
+              <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+                The Divine Agents
+              </span>
+            </h2>
+            <p className="text-2xl md:text-3xl text-amber-100/80 max-w-4xl mx-auto font-light leading-relaxed">
+              Six immortal intelligences, each mastering a domain of business transformation
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+            {/* Prometheus */}
+            <Card className="bg-gradient-to-br from-amber-950/40 via-orange-900/40 to-amber-950/40 border-amber-400/30 hover:border-amber-300/50 transition-all duration-500 transform hover:scale-105 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-amber-500/20 rounded-2xl group">
+              <CardHeader className="text-center pb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-amber-500/40 group-hover:shadow-2xl group-hover:shadow-amber-500/60 transition-all duration-500">
+                  <Flame className="w-10 h-10 text-black" />
+                </div>
+                <CardTitle className="text-white text-3xl font-serif font-bold mb-4">Prometheus</CardTitle>
+                <p className="text-amber-300 text-lg italic font-serif mb-4">"The fire-bringer who sparks transformation"</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-amber-100/90 text-lg leading-relaxed text-center">
+                  Core intelligence, strategy & innovation. The mastermind that ignites revolutionary 
+                  business transformation through divine foresight and strategic brilliance.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Athena */}
+            <Card className="bg-gradient-to-br from-blue-950/40 via-indigo-900/40 to-blue-950/40 border-blue-400/30 hover:border-blue-300/50 transition-all duration-500 transform hover:scale-105 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 rounded-2xl group">
+              <CardHeader className="text-center pb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-blue-500/40 group-hover:shadow-2xl group-hover:shadow-blue-500/60 transition-all duration-500">
+                  <Brain className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-white text-3xl font-serif font-bold mb-4">Athena</CardTitle>
+                <p className="text-blue-300 text-lg italic font-serif mb-4">"Wisdom refined by data"</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-blue-100/90 text-lg leading-relaxed text-center">
+                  Research & knowledge synthesis. The goddess of strategic intelligence who transforms 
+                  raw data into actionable wisdom and competitive advantage.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Hermes */}
+            <Card className="bg-gradient-to-br from-emerald-950/40 via-green-900/40 to-emerald-950/40 border-emerald-400/30 hover:border-emerald-300/50 transition-all duration-500 transform hover:scale-105 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-emerald-500/20 rounded-2xl group">
+              <CardHeader className="text-center pb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-emerald-500/40 group-hover:shadow-2xl group-hover:shadow-emerald-500/60 transition-all duration-500">
+                  <Zap className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-white text-3xl font-serif font-bold mb-4">Hermes</CardTitle>
+                <p className="text-emerald-300 text-lg italic font-serif mb-4">"Messenger of speed and flawless systems"</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-emerald-100/90 text-lg leading-relaxed text-center">
+                  Communication & automation. The swift messenger who connects every system, 
+                  ensuring seamless workflows and lightning-fast execution.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Hephaestus */}
+            <Card className="bg-gradient-to-br from-red-950/40 via-rose-900/40 to-red-950/40 border-red-400/30 hover:border-red-300/50 transition-all duration-500 transform hover:scale-105 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-red-500/20 rounded-2xl group">
+              <CardHeader className="text-center pb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-red-400 to-rose-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-red-500/40 group-hover:shadow-2xl group-hover:shadow-red-500/60 transition-all duration-500">
+                  <Hammer className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-white text-3xl font-serif font-bold mb-4">Hephaestus</CardTitle>
+                <p className="text-red-300 text-lg italic font-serif mb-4">"Craftsman of robust digital engines"</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-red-100/90 text-lg leading-relaxed text-center">
+                  Development & infrastructure. The divine craftsman who forges unbreakable 
+                  systems and builds the technological foundations of your empire.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Apollo - Updated for LinkedIn Sales Navigator */}
+            <Card className="bg-gradient-to-br from-yellow-950/40 via-amber-900/40 to-yellow-950/40 border-yellow-400/30 hover:border-yellow-300/50 transition-all duration-500 transform hover:scale-105 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-yellow-500/20 rounded-2xl group">
+              <CardHeader className="text-center pb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-yellow-500/40 group-hover:shadow-2xl group-hover:shadow-yellow-500/60 transition-all duration-500">
+                  <Users className="w-10 h-10 text-black" />
+                </div>
+                <CardTitle className="text-white text-3xl font-serif font-bold mb-4">Apollo</CardTitle>
+                <p className="text-yellow-300 text-lg italic font-serif mb-4">"Divine LinkedIn prospecting automation"</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-yellow-100/90 text-lg leading-relaxed text-center">
+                  Automates lead prospecting on LinkedIn Sales Navigator. The god of precise targeting 
+                  who finds your ideal prospects with divine accuracy and systematic outreach.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Morpheus */}
+            <Card className="bg-gradient-to-br from-purple-950/40 via-violet-900/40 to-purple-950/40 border-purple-400/30 hover:border-purple-300/50 transition-all duration-500 transform hover:scale-105 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 rounded-2xl group">
+              <CardHeader className="text-center pb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-violet-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-purple-500/40 group-hover:shadow-2xl group-hover:shadow-purple-500/60 transition-all duration-500">
+                  <Eye className="w-10 h-10 text-white" />
+                </div>
+                <CardTitle className="text-white text-3xl font-serif font-bold mb-4">Morpheus</CardTitle>
+                <p className="text-purple-300 text-lg italic font-serif mb-4">"Shaping digital dreams into reality"</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-purple-100/90 text-lg leading-relaxed text-center">
+                  UX & interface optimization. The dream-shaper who transforms complex systems 
+                  into intuitive experiences that feel like magic.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Capabilities Section */}
+      <section id="capabilities" className="py-32 px-6 bg-gradient-to-r from-gray-950/50 to-black/50 relative">
+        <div className="container mx-auto">
+          <div className="text-center mb-24">
+            <h2 className="text-6xl md:text-7xl font-serif font-bold text-white mb-8">
+              Divine Capabilities
+            </h2>
+            <p className="text-2xl md:text-3xl text-amber-100/80 max-w-4xl mx-auto font-light leading-relaxed">
+              Powers that transform mortals into titans of industry
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+            <div className="text-center group">
+              <div className="w-24 h-24 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-amber-500/40 group-hover:shadow-3xl group-hover:shadow-amber-500/60 transition-all duration-500 transform group-hover:scale-110">
+                <Rocket className="w-12 h-12 text-black" />
+              </div>
+              <h3 className="text-2xl font-serif font-bold text-white mb-4">Strategic Automation</h3>
+              <p className="text-amber-100/80 text-lg leading-relaxed">
+                Transform your business operations with AI agents that think, decide, and execute 
+                with the wisdom of Athena and the speed of Hermes.
+              </p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-blue-500/40 group-hover:shadow-3xl group-hover:shadow-blue-500/60 transition-all duration-500 transform group-hover:scale-110">
+                <Brain className="w-12 h-12 text-white" />
+              </div>
+              <h3 className="text-2xl font-serif font-bold text-white mb-4">Intelligence Synthesis</h3>
+              <p className="text-blue-100/80 text-lg leading-relaxed">
+                Harness vast data streams and transform them into actionable insights that 
+                reveal opportunities invisible to mortal minds.
+              </p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-24 h-24 bg-gradient-to-br from-emerald-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-emerald-500/40 group-hover:shadow-3xl group-hover:shadow-emerald-500/60 transition-all duration-500 transform group-hover:scale-110">
+                <Workflow className="w-12 h-12 text-white" />
+              </div>
+              <h3 className="text-2xl font-serif font-bold text-white mb-4">System Orchestration</h3>
+              <p className="text-emerald-100/80 text-lg leading-relaxed">
+                Create symphonies of automated processes that work in perfect harmony, 
+                eliminating friction and amplifying your impact.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-40 px-6 relative bg-gradient-to-br from-black via-amber-950/20 to-black">
+        {/* Epic Background Effects */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-amber-500/15 to-orange-500/15 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-1/4 w-[500px] h-[500px] bg-gradient-to-r from-amber-600/10 to-yellow-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-amber-400/5 to-orange-400/5 rounded-full blur-3xl"></div>
+        </div>
+
+        {/* Lightning Effects */}
+        <div className="absolute top-32 left-20 w-1 h-32 bg-gradient-to-b from-amber-400 to-transparent opacity-30 animate-pulse"></div>
+        <div className="absolute top-40 right-32 w-1 h-24 bg-gradient-to-b from-amber-500 to-transparent opacity-20 animate-pulse delay-500"></div>
+        <div className="absolute bottom-32 left-1/3 w-1 h-28 bg-gradient-to-b from-amber-300 to-transparent opacity-25 animate-pulse delay-700"></div>
+
+        <div className="container mx-auto max-w-8xl relative z-10">
+          <div className="text-center mb-32">
+            <div className="relative inline-block mb-16">
+              <div className="absolute -inset-4 bg-gradient-to-r from-amber-400/20 to-orange-500/20 rounded-full blur-2xl animate-pulse"></div>
+              <Badge className="bg-gradient-to-r from-amber-500/30 to-orange-500/30 text-amber-200 border-amber-400/50 px-12 py-6 text-2xl font-serif rounded-full shadow-2xl shadow-amber-500/30 relative">
+                <Crown className="w-8 h-8 mr-4" />
+                Choose Your Divine Power
+                <Sparkles className="w-8 h-8 ml-4" />
+              </Badge>
+            </div>
+            
+            <h2 className="text-7xl md:text-9xl font-serif font-black text-white mb-12 leading-tight">
+              <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl">
+                Ascension Tiers
+              </span>
+              <div className="text-5xl md:text-6xl mt-6 text-amber-100/90 font-light">
+                Unleash Your Potential
+              </div>
+            </h2>
+            
+            <p className="text-2xl md:text-3xl text-amber-100/80 max-w-5xl mx-auto font-light leading-relaxed">
+              Transparent pricing forged in the fires of Mount Olympus. Each tier unlocks greater divine power.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-12 max-w-8xl mx-auto">
+            {/* Agent Starter - Enhanced */}
+            <Card className="relative bg-gradient-to-br from-gray-950/80 via-gray-900/80 to-gray-950/80 border-2 border-gray-500/40 hover:border-gray-400/60 rounded-3xl p-10 backdrop-blur-xl shadow-2xl hover:shadow-3xl hover:shadow-gray-500/20 transition-all duration-700 transform hover:scale-105 group overflow-hidden">
+              {/* Background Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-600/10 via-transparent to-gray-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              
+              {/* Lightning Border Effect */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-gray-400/20 via-transparent to-gray-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+              
+              <div className="relative">
+                <div className="text-center mb-12">
+                  <div className="relative mb-8">
+                    <div className="w-28 h-28 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center mx-auto shadow-2xl shadow-gray-500/50 group-hover:shadow-3xl group-hover:shadow-gray-500/70 transition-all duration-500">
+                      <Shield className="w-14 h-14 text-white" />
+                    </div>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-gray-400/30 to-gray-600/30 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                  
+                  <h3 className="text-4xl font-serif font-bold text-white mb-6">Agent Starter</h3>
+                  <p className="text-gray-300 text-xl mb-8 leading-relaxed">Perfect for igniting your first automation flame</p>
+                  
+                  <div className="mb-12">
+                    <span className="text-6xl font-black text-white">$1,500</span>
+                    <span className="text-2xl text-gray-400 font-light">/month</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-6 mb-12">
+                  <div className="flex items-center text-gray-200">
+                    <CheckCircle className="w-6 h-6 text-gray-400 mr-4" />
+                    <span className="text-lg">Single AI agent automation</span>
+                  </div>
+                  <div className="flex items-center text-gray-200">
+                    <CheckCircle className="w-6 h-6 text-gray-400 mr-4" />
+                    <span className="text-lg">Basic workflow optimization</span>
+                  </div>
+                  <div className="flex items-center text-gray-200">
+                    <CheckCircle className="w-6 h-6 text-gray-400 mr-4" />
+                    <span className="text-lg">Monthly strategy sessions</span>
+                  </div>
+                </div>
+                
+                <Button className="w-full bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white font-bold py-6 px-8 rounded-xl transition-all duration-500 shadow-xl shadow-gray-600/30 hover:shadow-2xl hover:shadow-gray-500/40 text-lg">
+                  <Flame className="mr-3 w-6 h-6" />
+                  Begin Your Journey
+                </Button>
+              </div>
+            </Card>
+
+            {/* Growth Partner - Most Epic */}
+            <Card className="relative bg-gradient-to-br from-amber-950/80 via-orange-900/80 to-amber-950/80 border-4 border-amber-400/60 hover:border-amber-300/80 rounded-3xl p-12 backdrop-blur-xl shadow-3xl hover:shadow-4xl hover:shadow-amber-500/40 transition-all duration-700 transform hover:scale-110 group overflow-hidden scale-105">
+              {/* Epic Background Effects */}
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 via-orange-500/10 to-amber-500/20 opacity-50 group-hover:opacity-70 transition-opacity duration-700"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              
+              {/* Crown Badge */}
+              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
+                <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-black px-8 py-4 rounded-full text-lg font-bold shadow-2xl shadow-amber-500/50 border-2 border-amber-300">
+                  <Crown className="w-6 h-6 mr-2" />
+                  DIVINE CHOICE
+                  <Sparkles className="w-6 h-6 ml-2" />
+                </Badge>
+              </div>
+
+              {/* Lightning Effects */}
+              <div className="absolute top-4 left-4 w-20 h-20 border-2 border-amber-400/40 rotate-45 rounded-lg opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute top-4 right-4 w-16 h-16 border border-amber-300/40 rounded-full opacity-30 group-hover:opacity-60 transition-opacity duration-500"></div>
+              <div className="absolute bottom-4 left-4 w-16 h-16 border border-amber-400/30 rotate-12 rounded-lg opacity-40 group-hover:opacity-70 transition-opacity duration-500"></div>
+              <div className="absolute bottom-4 right-4 w-18 h-18 border-2 border-amber-500/30 rounded-full opacity-30 group-hover:opacity-60 transition-opacity duration-500"></div>
+              
+              <div className="relative z-10">
+                <div className="text-center mb-12">
+                  <div className="relative mb-10">
+                    <div className="w-32 h-32 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto shadow-3xl shadow-amber-500/60 group-hover:shadow-4xl group-hover:shadow-amber-500/80 transition-all duration-700">
+                      <Crown className="w-16 h-16 text-black" />
+                    </div>
+                    <div className="absolute -inset-3 bg-gradient-to-r from-amber-400/40 to-orange-500/40 rounded-full blur-lg animate-pulse"></div>
+                  </div>
+                  
+                  <h3 className="text-5xl font-serif font-bold text-white mb-6">Growth Partner</h3>
+                  <p className="text-amber-200 text-xl mb-8 leading-relaxed">Harness the full power of divine automation</p>
+                  
+                  <div className="mb-12">
+                    <span className="text-7xl font-black bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">$4,000</span>
+                    <span className="text-2xl text-amber-300 font-light block mt-2">/month</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-6 mb-12">
+                  <div className="flex items-center text-amber-100">
+                    <CheckCircle className="w-6 h-6 text-amber-400 mr-4" />
+                    <span className="text-lg">Complete system automation</span>
+                  </div>
+                  <div className="flex items-center text-amber-100">
+                    <CheckCircle className="w-6 h-6 text-amber-400 mr-4" />
+                    <span className="text-lg">Multi-agent orchestration</span>
+                  </div>
+                  <div className="flex items-center text-amber-100">
+                    <CheckCircle className="w-6 h-6 text-amber-400 mr-4" />
+                    <span className="text-lg">Advanced AI integration</span>
+                  </div>
+                  <div className="flex items-center text-amber-100">
+                    <CheckCircle className="w-6 h-6 text-amber-400 mr-4" />
+                    <span className="text-lg">24/7 monitoring & optimization</span>
+                  </div>
+                </div>
+                
+                <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black font-bold py-8 px-8 rounded-xl transition-all duration-500 shadow-3xl shadow-amber-500/50 hover:shadow-4xl hover:shadow-amber-500/70 text-xl relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-300/20 to-orange-400/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                  <Flame className="mr-4 w-7 h-7 relative z-10" />
+                  <span className="relative z-10">Claim Divine Power</span>
+                  <Zap className="ml-4 w-7 h-7 relative z-10" />
+                </Button>
+              </div>
+            </Card>
+
+            {/* Performance Scale - Enhanced */}
+            <Card className="relative bg-gradient-to-br from-purple-950/80 via-violet-900/80 to-purple-950/80 border-2 border-purple-400/40 hover:border-purple-300/60 rounded-3xl p-10 backdrop-blur-xl shadow-2xl hover:shadow-3xl hover:shadow-purple-500/20 transition-all duration-700 transform hover:scale-105 group overflow-hidden">
+              {/* Background Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 via-transparent to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              
+              {/* Mystical Border Effect */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-400/20 via-transparent to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+              
+              <div className="relative">
+                <div className="text-center mb-12">
+                  <div className="relative mb-8">
+                    <div className="w-28 h-28 bg-gradient-to-br from-purple-400 to-violet-600 rounded-full flex items-center justify-center mx-auto shadow-2xl shadow-purple-500/50 group-hover:shadow-3xl group-hover:shadow-purple-500/70 transition-all duration-500">
+                      <Mountain className="w-14 h-14 text-white" />
+                    </div>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-purple-400/30 to-violet-600/30 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                  
+                  <h3 className="text-4xl font-serif font-bold text-white mb-6">Performance Scale</h3>
+                  <p className="text-purple-300 text-xl mb-8 leading-relaxed">For titans who demand godlike transformation</p>
+                  
+                  <div className="mb-12">
+                    <span className="text-6xl font-black bg-gradient-to-r from-purple-300 to-violet-400 bg-clip-text text-transparent">Custom</span>
+                    <span className="text-lg text-purple-400 font-light block mt-2">Pricing fit for legends</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-6 mb-12">
+                  <div className="flex items-center text-purple-100">
+                    <CheckCircle className="w-6 h-6 text-purple-400 mr-4" />
+                    <span className="text-lg">Enterprise-wide transformation</span>
+                  </div>
+                  <div className="flex items-center text-purple-100">
+                    <CheckCircle className="w-6 h-6 text-purple-400 mr-4" />
+                    <span className="text-lg">Custom AI architecture</span>
+                  </div>
+                  <div className="flex items-center text-purple-100">
+                    <CheckCircle className="w-6 h-6 text-purple-400 mr-4" />
+                    <span className="text-lg">Dedicated god-tier support</span>
+                  </div>
+                </div>
+                
+                <Button className="w-full bg-gradient-to-r from-purple-600 to-violet-700 hover:from-purple-500 hover:to-violet-600 text-white font-bold py-6 px-8 rounded-xl transition-all duration-500 shadow-xl shadow-purple-600/30 hover:shadow-2xl hover:shadow-purple-500/40 text-lg">
+                  <Crown className="mr-3 w-6 h-6" />
+                  Ascend to Olympus
+                </Button>
+              </div>
+            </Card>
+          </div>
+
+          {/* Epic Bottom Section */}
+          <div className="text-center mt-20">
+            <div className="w-60 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-8"></div>
+            <p className="text-amber-200/80 text-xl font-serif italic">
+              "Choose wisely, for each tier unlocks greater dominion over the digital realm"
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-32 px-6 bg-gradient-to-br from-amber-950/20 via-gray-950/20 to-amber-950/20 relative">
+        <div className="container mx-auto text-center max-w-6xl relative">
+          <h2 className="text-6xl md:text-8xl font-serif font-black text-white mb-12 leading-tight">
+            <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+              Ascend to Greatness.
+            </span>
+            <span className="block mt-4 text-5xl md:text-6xl text-amber-100/90">
+              Harness the Fire.
+            </span>
+          </h2>
+          <p className="text-2xl md:text-3xl text-amber-100/80 mb-16 max-w-5xl mx-auto font-light leading-relaxed">
+            The pantheon awaits. Transform your business with divine intelligence and join the 
+            legends who dared to steal fire from the gods.
+          </p>
+          <Button size="lg" className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-black font-bold px-20 py-10 rounded-2xl transition-all duration-300 shadow-3xl shadow-amber-500/50 hover:shadow-4xl hover:shadow-amber-500/60 transform hover:scale-105 text-2xl">
+            <Flame className="mr-4 w-8 h-8" />
+            Begin Your Transformation
+            <ArrowRight className="ml-4 w-8 h-8" />
+          </Button>
+          <div className="mt-20 pt-16 border-t border-amber-700/30">
+            <p className="text-amber-400 mb-8 text-xl font-medium">Contact the Pantheon:</p>
+            <p className="text-amber-200 text-2xl font-medium">olympus@prometheusautomation.com</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-16 px-6 bg-black/90 border-t border-amber-800/30 backdrop-blur-xl">
+        <div className="container mx-auto text-center">
+          <div className="flex items-center justify-center space-x-4 mb-8">
+            <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-lg flex items-center justify-center shadow-lg shadow-amber-500/30">
+              <Flame className="w-6 h-6 text-black" />
+            </div>
+            <div>
+              <span className="text-2xl font-serif font-bold bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+                Prometheus Automation
+              </span>
+              <div className="text-sm text-amber-200/70">Digital Pantheon</div>
+            </div>
+          </div>
+          <p className="text-amber-400/80 text-lg font-light">
+            © 2024 Prometheus Automation. Bringing divine fire to digital transformation.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Index;
